@@ -63,15 +63,16 @@ program.argument('<dir>').action(async (dir) => {
     await execa({
         stdout: 'inherit',
         cwd: toDir,
-    })`pnpm i @anfo/huiserver prisma cross-env`
-    await execa({
-        stdout: 'inherit',
-        cwd: toDir,
     })`pnpm i koa-passport passport-github qs`
     await execa({
         stdout: 'inherit',
         cwd: toDir,
     })`pnpm i -D @types/koa @types/koa-passport @types/passport-github @types/qs tsc-watch typescript`
+    // PRISMA 放最后，因为prisma install script可能会卡住，这个时候就少安装了依赖。
+    await execa({
+        stdout: 'inherit',
+        cwd: toDir,
+    })`pnpm i @anfo/huiserver prisma cross-env`
     await execa({ stdout: 'inherit', cwd: toDir })`pnpm prisma generate`
 })
 program.parse()
