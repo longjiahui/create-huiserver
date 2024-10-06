@@ -67,7 +67,7 @@ program.argument('<dir>').action(async (dir) => {
     await execa({
         stdout: 'inherit',
         cwd: toDir,
-    })`pnpm i -D @types/jsonwebtoken @types/koa @types/koa-passport @types/passport-github @types/qs tsc-watch typescript`
+    })`pnpm i -D @types/jsonwebtoken @types/koa @types/koa-passport @types/koa-bodyparser @types/passport-github @types/qs tsc-watch typescript`
     // PRISMA 放最后，因为prisma install script可能会卡住，这个时候就少安装了依赖。
     await execa({
         stdout: 'inherit',

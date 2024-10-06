@@ -32,6 +32,6 @@ declare module '@anfo/huiserver' {
     }
 }
 
-export default ((app) => {
+export const guardMod = ((app) => {
     app.guard.user = userGuard
 }) as Module
