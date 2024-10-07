@@ -32,9 +32,14 @@ program.argument("<dir>").action(async (dir) => {
     bin: "./dist/index.js",
     type: "commonjs",
     scripts: {
-      dev: 'cross-env DEBUG=koa-router,server:* tsc-watch --onSuccess "node dist/index.js"',
+      dev: 'cross-env DEBUG=koa-router,server:* tsc-watch --onSuccess "node dist/src/index.js"',
       build: "tsc",
       lint: "tsc --noEmit",
+      "test:watch:debug":
+        'cross-env NODE_ENV=development DEBUG=server:* tsc-watch --onSuccess "jest"',
+      "test:watch":
+        'cross-env NODE_ENV=development DEBUG=server:*,-server:debug tsc-watch --onSuccess "jest"',
+      test: "tsc && cross-env NODE_ENV=development DEBUG=server:*,-server:debug,-server:log jest",
     },
     keywords: [],
     author: [],
@@ -68,7 +73,7 @@ program.argument("<dir>").action(async (dir) => {
   await execa({
     stdout: "inherit",
     cwd: toDir,
-  })`pnpm i -D @types/jsonwebtoken @types/koa @types/koa-passport @types/koa-bodyparser @types/passport-github @types/qs tsc-watch typescript`
+  })`pnpm i -D supertest @types/supertest jest @types/jest @types/jsonwebtoken @types/koa @types/koa-passport @types/koa-bodyparser @types/passport-github @types/qs tsc-watch typescript`
   // PRISMA 放最后，因为prisma install script可能会卡住，这个时候就少安装了依赖。
   await execa({
     stdout: "inherit",
