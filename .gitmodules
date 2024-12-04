@@ -1,0 +1,6 @@
+[submodule "protocoltest/src/huiprotocol-core"]
+	path = protocoltest/src/huiprotocol-core
+	url = git@github.com:longjiahui/huiprotocol-core.git
+[submodule "server-test/src/protocol"]
+	path = server-test/src/protocol
+	url = git@github.com:HuiOKR/protocol.git
