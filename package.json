@@ -1,10 +1,12 @@
 {
   "name": "create-huiserver",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "bin": "./dist/index.js",
   "files": [
     "./dist/**/*.js",
-    "./source/**/*"
+    "./source/**/*",
+    "./source/pms/.gitignore",
+    "./source/protocol/.gitignore"
   ],
   "type": "module",
   "scripts": {
