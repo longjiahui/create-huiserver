@@ -145,5 +145,9 @@ program.addCommand(
       return createProtocol(dir, options.protocolCoreUrl)
     })
 )
-program.version("0.0.12")
+
+const packageJSON = fs.readJsonSync(
+  path.resolve(import.meta.dirname, "../package.json")
+)
+program.version(packageJSON.version)
 program.parse()

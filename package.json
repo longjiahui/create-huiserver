@@ -1,19 +1,18 @@
 {
   "name": "create-huiserver",
-  "version": "0.0.13",
+  "version": "0.0.16",
   "bin": "./dist/index.js",
   "files": [
     "./dist/**/*.js",
-    "./source/**/*",
-    "./source/pms/.gitignore",
-    "./source/protocol/.gitignore"
+    "./source/**/*"
   ],
   "type": "module",
   "scripts": {
     "start": "npm run build && node dist/index.js",
     "dev": "tsc-watch",
     "build": "rm -rf dist && tsc",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
   },
   "keywords": [],
   "author": "",
