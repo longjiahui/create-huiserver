@@ -1,3 +1,4 @@
+import { User } from "@prisma/client"
 import { API } from "../protocol"
 
 export const urls = {
@@ -5,4 +6,5 @@ export const urls = {
     email: string
     password: string
   }>())(() => "/auth/local"),
+  userMyInfo: new (API<void, Omit<User, "password">>())(() => `/user/myInfo`),
 }

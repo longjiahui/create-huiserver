@@ -5,7 +5,7 @@ import path from "node:path"
 
 const sourceDir = path.resolve(import.meta.dirname, "../source")
 
-type Variables = "dbName"
+type Variables = "dbName" | "applicationName"
 
 export function source(p: string, relDir: string) {
   relDir = path.resolve(sourceDir, relDir)
@@ -22,7 +22,7 @@ export function source(p: string, relDir: string) {
      */
     copyTo: async (
       to: string,
-      replacer: Record<string, Record<Partial<Variables>, string>> = {}
+      replacer: Record<string, Partial<Record<Variables, string>>> = {}
     ) => {
       const toDir = path.resolve(to)
       await Promise.all(

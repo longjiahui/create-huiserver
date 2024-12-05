@@ -1,0 +1,11 @@
+{
+	"dialog": {
+		"defaultResolve": "確認",
+		"defaultCancel": "キャンセル"
+	},
+	"editSystemSettingDialog": {
+		"title": "システム設定",
+		"selectLocale": "言語を選択"
+	},
+	"noData": "データがありません"
+}

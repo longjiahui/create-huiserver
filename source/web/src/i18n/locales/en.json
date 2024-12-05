@@ -1,0 +1,11 @@
+{
+	"dialog": {
+		"defaultResolve": "Confirm",
+		"defaultCancel": "Cancel"
+	},
+	"editSystemSettingDialog": {
+		"title": "System Settings",
+		"selectLocale": "Select Language"
+	},
+	"noData": "No Data"
+}

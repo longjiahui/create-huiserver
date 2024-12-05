@@ -10,7 +10,7 @@ import { source } from "./source.js"
 async function createServer(protocolUrl: string, dir: string) {
   const toDir = path.resolve(dir)
   const defaultName = path.basename(toDir).split(path.sep).pop()
-  const projectName = await input({
+  const applicationName = await input({
     message: "Project name",
     default: defaultName,
     required: true,
@@ -27,7 +27,7 @@ async function createServer(protocolUrl: string, dir: string) {
   })
 
   const project = {
-    name: projectName,
+    name: applicationName,
     version: "1.0.0",
     type: "commonjs",
     scripts: {
@@ -123,6 +123,56 @@ async function createProtocol(
     cwd: toDir,
   })`git submodule update --recursive --init`
 }
+
+const defaultUIBaseURL = "git@github.com:longjiahui/ui-base.git"
+async function createWeb(
+  protocolUrl: string,
+  dir: string,
+  uiBaseUrl = defaultUIBaseURL
+) {
+  const toDir = path.resolve(dir)
+  const defaultName = path.basename(toDir).split(path.sep).pop()
+  const applicationName = await input({
+    message: "Project name",
+    default: defaultName,
+    required: true,
+  })
+  const finalUIBaseURL = uiBaseUrl || defaultProtocolCoreUrl
+  // 初始化文件
+  await source("./web/**/*", "./protocol").copyTo(toDir, {
+    "index.html": {
+      applicationName,
+    },
+    "package.json": {
+      applicationName,
+    },
+  })
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`git init .`
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`git submodule add ${finalUIBaseURL} src/base`
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`git submodule add ${protocolUrl} src/protocol`
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`git submodule update --recursive --init`
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`pnpm i`
+  await execa({
+    stdout: "inherit",
+    cwd: toDir,
+  })`pnpm generate`
+}
+
 program.addCommand(
   program
     .createCommand("server")
@@ -144,6 +194,23 @@ program.addCommand(
     .action(async (dir: string, options: { protocolCoreUrl?: string } = {}) => {
       return createProtocol(dir, options.protocolCoreUrl)
     })
+)
+
+program.addCommand(
+  program
+    .createCommand("web")
+    .option("-b --ui-base-url <uibaseUrl>", "protocol core git submodule url")
+    .argument("<protocolUrl>", "protocol git submodule url")
+    .argument("<dir>")
+    .action(
+      async (
+        protocolUrl,
+        dir: string,
+        options: { uibaseUrl?: string } = {}
+      ) => {
+        return createWeb(protocolUrl, dir, options.uibaseUrl)
+      }
+    )
 )
 
 const packageJSON = fs.readJsonSync(

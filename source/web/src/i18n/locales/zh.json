@@ -1,0 +1,11 @@
+{
+	"dialog": {
+		"defaultResolve": "确定",
+		"defaultCancel": "取消"
+	},
+	"editSystemSettingDialog": {
+		"title": "系统设置",
+		"selectLocale": "选择语言"
+	},
+	"noData": "没有数据"
+}

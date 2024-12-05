@@ -1,0 +1,17 @@
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "never"
+	},
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"files.eol": "\n",
+	"files.associations": {
+		"*.scss": "tailwindcss"
+	},
+	"[vue]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"i18n-ally.localesPaths": ["src/i18n/locales"],
+	"i18n-ally.sourceLanguage": "zh",
+	"i18n-ally.keystyle": "nested"
+}
