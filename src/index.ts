@@ -87,7 +87,6 @@ async function createServer(protocolUrl: string, dir: string) {
     stdout: "inherit",
     cwd: toDir,
   })`pnpm i -D prisma-json-types-generator @types/jest @types/jsonwebtoken @types/lodash @types/koa @types/koa-passport @types/passport-github @types/passport-local @types/koa-bodyparser @types/qs @types/supertest tsc-watch typescript`
-  await execa({ stdout: "inherit", cwd: toDir })`pnpm generate`
   await execa({
     stdout: "inherit",
     cwd: toDir,
@@ -100,6 +99,7 @@ async function createServer(protocolUrl: string, dir: string) {
     stdout: "inherit",
     cwd: toDir,
   })`git submodule update --recursive --init`
+  await execa({ stdout: "inherit", cwd: toDir })`pnpm generate`
 }
 const defaultProtocolCoreUrl = "git@github.com:longjiahui/huiprotocol-core.git"
 async function createProtocol(
