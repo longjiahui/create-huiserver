@@ -1,5 +1,10 @@
 import { Application, createModule } from "@anfo/huiserver"
-import { APIInstance, GetAPIPathParameters, type GetAPIRes } from "../protocol"
+import type {
+  APIInstance,
+  GetAPIReq,
+  GetAPIPathParameters,
+  GetAPIRes,
+} from "../protocol"
 import { Middleware } from "koa"
 import { Prisma } from "@prisma/client"
 import { prisma } from "../db"
@@ -13,7 +18,12 @@ function _createController(app: Application) {
     api: APIWithPaths<T>,
     ...middlewares: [
       ...Middleware[],
-      (...rest: Parameters<Middleware>) => Promise<GetAPIRes<T>> | GetAPIRes<T>
+      (
+        ctx: Parameters<Middleware>[0] & {
+          request: { body: GetAPIReq<T> }
+        },
+        next: Parameters<Middleware>[1]
+      ) => Promise<GetAPIRes<T>> | GetAPIRes<T>
     ]
   ) => {
     const pathRest = (
